@@ -10,11 +10,6 @@ import * as THREE from 'three'
 
 export default {
   props: {
-    // bufferSize: {
-    //   type: Number,
-    //   default: 800,
-    //   required: false
-    // },
     shapeZoom: {
       type: Number,
       default: 3,
@@ -23,13 +18,7 @@ export default {
   },
   data() {
     return {
-      scene: new THREE.Scene(),
       tileHolder: new THREE.Object3D(),
-      tileMat: new THREE.MeshBasicMaterial({
-        //main object
-        map: bufferTexture,
-        side: THREE.DoubleSide
-      }),
       numAxes: 12,
       bufferSize: 800,
       bufferWidth: 800, //redundant
@@ -42,10 +31,10 @@ export default {
     }
   },
   methods: {
-    updateGridGeometry() {
+    updateGridGeometry(bufferTexture, scene) {
       console.log('updating geometry')
 
-      this.scene.remove(this.tileHolder)
+      scene.remove(this.tileHolder)
 
       var theta = 0
       var numSteps = this.numAxes
@@ -166,7 +155,13 @@ export default {
       //this is the scale- look here
       var scale = 300 / 3
 
-      var tileMesh = new THREE.Mesh(tileGeometry, this.tileMat)
+      var tileMat = new THREE.MeshBasicMaterial({
+        //main object
+        map: bufferTexture,
+        side: THREE.DoubleSide
+      })
+
+      var tileMesh = new THREE.Mesh(tileGeometry, tileMat)
       tileMesh.scale.set(scale, scale, 1)
       tileMesh.rotation.z = rotOffset
       tileRow.add(tileMesh)
@@ -195,10 +190,12 @@ export default {
         this.tileHolder.add(tileRowBottom)
       }
 
-      this.scene.add(this.tileHolder)
+      scene.add(this.tileHolder)
     }
   },
   mounted() {
+    var scene = new THREE.Scene()
+
     var bufferCamera = new THREE.PerspectiveCamera(
       75,
       this.bufferWidth / this.bufferHeight,
@@ -206,6 +203,13 @@ export default {
       1000
     )
     bufferCamera.position.z = this.shapeZoom
+
+    //you may need to alter the targets here
+    var bufferTexture = new THREE.WebGLRenderTarget(800, 800, {
+      minFilter: THREE.LinearMipMapLinearFilter,
+      magFilter: THREE.LinearFilter,
+      antialias: true
+    })
 
     var camera = new THREE.OrthographicCamera(
       window.innerWidth / -2,
@@ -222,15 +226,6 @@ export default {
     document.body.appendChild(renderer.domElement)
 
     var bufferScene = new THREE.Scene()
-    var bufferTexture = new THREE.WebGLRenderTarget(
-      this.bufferWidth,
-      this.bufferHeight,
-      {
-        minFilter: THREE.LinearMipMapLinearFilter,
-        magFilter: THREE.LinearFilter,
-        antialias: true
-      }
-    )
 
     /// buffer scene objects
 
@@ -269,13 +264,13 @@ export default {
 
     /// main scene objects
     var ambientLight = new THREE.AmbientLight(0x404040)
-    this.scene.add(ambientLight)
+    scene.add(ambientLight)
 
     var pointLight3 = new THREE.PointLight(0xffffff)
     pointLight3.position.set(-100, 200, 100)
-    this.scene.add(pointLight3)
+    scene.add(pointLight3)
 
-    this.updateGridGeometry()
+    this.updateGridGeometry(bufferTexture, scene)
 
     // test plane
     var planeMat = new THREE.MeshBasicMaterial({
@@ -287,7 +282,7 @@ export default {
       this.bufferHeight / 2
     )
     var planeObj = new THREE.Mesh(planeGeo, planeMat)
-    this.scene.add(planeObj)
+    scene.add(planeObj)
     planeObj.visible = false
 
     function randomize() {
