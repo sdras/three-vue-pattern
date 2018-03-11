@@ -1,0 +1,27 @@
+<template>
+  <div id="app">
+    <app-base />
+  </div>
+</template>
+
+<script>
+import AppBase from './components/AppBase.vue'
+
+export default {
+  components: {
+    AppBase
+  }
+}
+</script>
+
+<style lang="scss">
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: black;
+}
+canvas {
+  width: 100%;
+  height: 100%;
+}
+</style>
