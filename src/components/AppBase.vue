@@ -14,15 +14,41 @@ export default {
       type: Number,
       default: 3,
       required: false
+    },
+    numShapes: {
+      type: Number,
+      default: 3,
+      required: false
+    },
+    numAxes: {
+      type: Number,
+      default: 12,
+      required: false
+    },
+    scale: {
+      type: Number,
+      default: 900,
+      required: false
+    },
+    wireframe: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
+    rainbow: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
+    color: {
+      default: 0x00ffff,
+      required: false
     }
   },
   data() {
     return {
       tileHolder: new THREE.Object3D(),
-      numAxes: 12,
       bufferSize: 800,
-      bufferWidth: 800, //redundant
-      bufferHeight: 800, //redundant
       showTexture: false, //not used anywhere
       speed: 0.5, //not used anywhere
       saturation: 1.0, //not used anywhere
@@ -31,6 +57,27 @@ export default {
     }
   },
   methods: {
+    createShapes(allShapes, bufferScene) {
+      for (var i = 0; i < this.numShapes; i++) {
+        var shape = new THREE.TorusKnotGeometry(10, 3, 100, 16),
+          material
+        if (this.rainbow) {
+          material = new THREE.MeshNormalMaterial({
+            wireframe: this.wireframe
+          })
+        } else {
+          material = new THREE.MeshBasicMaterial({
+            color: this.color,
+            wireframe: this.wireframe,
+            transparent: true
+          })
+        }
+        var torusKnot = new THREE.Mesh(shape, material)
+
+        bufferScene.add(torusKnot)
+        allShapes[i] = shape
+      }
+    },
     updateGridGeometry(bufferTexture, scene) {
       console.log('updating geometry')
 
@@ -152,8 +199,8 @@ export default {
       var tileRow = new THREE.Object3D()
       this.tileHolder.add(tileRow)
 
-      //this is the scale- look here
-      var scale = 300 / 3
+      //this is the scale
+      var scale = this.scale / 3
 
       var tileMat = new THREE.MeshBasicMaterial({
         //main object
@@ -198,7 +245,7 @@ export default {
 
     var bufferCamera = new THREE.PerspectiveCamera(
       75,
-      this.bufferWidth / this.bufferHeight,
+      this.bufferSize / this.bufferSize,
       0.1,
       1000
     )
@@ -230,26 +277,7 @@ export default {
     /// buffer scene objects
 
     var allShapes = []
-    var numShapes = 10
-    var complexity = 5
-
-    function createShapes() {
-      for (var i = 0; i < numShapes; i++) {
-        var shape = new THREE.TorusKnotGeometry(10, 3, 100, 16)
-        var material = new THREE.MeshNormalMaterial()
-        var torusKnot = new THREE.Mesh(shape, material)
-
-        bufferScene.add(torusKnot)
-        allShapes[i] = shape
-
-        if (i < complexity) {
-          shape.visible = true
-        } else {
-          shape.visible = false
-        }
-      }
-    }
-    createShapes()
+    this.createShapes(allShapes, bufferScene)
 
     var ambientLight = new THREE.AmbientLight(0x808080)
     bufferScene.add(ambientLight)
@@ -278,15 +306,15 @@ export default {
       side: THREE.DoubleSide
     })
     var planeGeo = new THREE.PlaneGeometry(
-      this.bufferWidth / 2,
-      this.bufferHeight / 2
+      this.bufferSize / 2,
+      this.bufferSize / 2
     )
     var planeObj = new THREE.Mesh(planeGeo, planeMat)
     scene.add(planeObj)
     planeObj.visible = false
 
     function randomize() {
-      for (var i = 0; i < numShapes; i++) {
+      for (var i = 0; i < this.numShapes; i++) {
         allShapes[i].update()
         bufferScene.remove(allShapes[i].mesh)
       }
@@ -294,7 +322,7 @@ export default {
     }
 
     function randomizeColor() {
-      for (var i = 0; i < numShapes; i++) {
+      for (var i = 0; i < this.numShapes; i++) {
         allShapes[i].randomizeColor()
       }
     }

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <app-base />
+    <app-base :shape-zoom="1" :num-shapes="5" />
   </div>
 </template>
 
