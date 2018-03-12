@@ -2,15 +2,18 @@
   <div id="app">
     <app-base :shape-zoom="1" :num-shapes="5" :t-config.c="2" :wireframe="hasWireframe" />
     <app-controls v-model="hasWireframe" />
+    <app-vuex />
   </div>
 </template>
 
 <script>
+import AppVuex from './components/AppVuex.vue'
 import AppBase from './components/AppBase.vue'
 import AppControls from './components/AppControls.vue'
 
 export default {
   components: {
+    AppVuex,
     AppBase,
     AppControls
   },
