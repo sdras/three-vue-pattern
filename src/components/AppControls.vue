@@ -20,9 +20,13 @@
       v-model="sliderValue">
     </range-slider><br><br>
     <label for="rainbow" class="inline">Rainbow:</label>
-    <input type="checkbox" id="rainbow" v-model="rainbow"><br><br><br>
+    <input type="checkbox" id="rainbow" v-model="rainbow" /><br><br><br>
     <label for="wireframe" class="inline">Wireframe:</label>
-    <input type="checkbox" id="wireframe" v-model="wireframe">
+    <input 
+      type="checkbox" 
+      id="wireframe" 
+      :checked="wireframe"
+      @change="changeWire" />
   </aside>
 </template>
 
@@ -38,6 +42,12 @@ export default {
       zoom: 3,
       rainbow: true,
       wireframe: false
+    }
+  },
+  methods: {
+    changeWire() {
+      this.wireframe = !this.wireframe
+      this.$emit('input', this.wireframe)
     }
   },
   computed: {

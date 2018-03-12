@@ -60,6 +60,11 @@ export default {
       isPaused: false //at the end
     }
   },
+  watch: {
+    wireframe() {
+      this.init()
+    }
+  },
   methods: {
     createShapes(allShapes, bufferScene) {
       for (var i = 0; i < this.numShapes; i++) {
@@ -82,7 +87,12 @@ export default {
             emissive: 0x6e163f
           })
         }
+        //shape.attributes.position.needsUpdate = true
+        //material.wireframe.needsUpdate = true
+
         var torusKnot = new THREE.Mesh(shape, material)
+        console.log(torusKnot)
+        torusKnot.material.needsUpdate = true
 
         bufferScene.add(torusKnot)
         allShapes[i] = shape
@@ -246,89 +256,92 @@ export default {
       }
 
       scene.add(this.tileHolder)
+    },
+    init() {
+      var scene = new THREE.Scene()
+
+      var bufferCamera = new THREE.PerspectiveCamera(
+        75,
+        this.bufferSize / this.bufferSize,
+        0.1,
+        1000
+      )
+      bufferCamera.position.z = this.shapeZoom
+
+      //you may need to alter the targets here
+      var bufferTexture = new THREE.WebGLRenderTarget(
+        this.bufferSize,
+        this.bufferSize,
+        {
+          minFilter: THREE.LinearMipMapLinearFilter,
+          magFilter: THREE.LinearFilter,
+          antialias: true
+        }
+      )
+
+      var camera = new THREE.OrthographicCamera(
+        window.innerWidth / -2,
+        window.innerWidth / 2,
+        window.innerHeight / 2,
+        window.innerHeight / -2,
+        0.1,
+        1000
+      )
+      camera.position.z = 5
+
+      var renderer = new THREE.WebGLRenderer({ antialias: true })
+      renderer.setSize(window.innerWidth, window.innerHeight)
+      document.body.appendChild(renderer.domElement)
+
+      var bufferScene = new THREE.Scene()
+
+      /// buffer scene objects
+
+      var allShapes = []
+      this.createShapes(allShapes, bufferScene)
+
+      var pointLight = new THREE.PointLight(0x404040)
+      pointLight.position.set(0, 50, -200)
+      bufferScene.add(pointLight)
+
+      /// main scene objects
+      var ambientLight = new THREE.AmbientLight(0x404040)
+      scene.add(ambientLight)
+
+      var pointLight3 = new THREE.PointLight(0xffffff)
+      pointLight3.position.set(-100, 200, 100)
+      scene.add(pointLight3)
+
+      this.updateGridGeometry(bufferTexture, scene)
+
+      //animate the scene
+      function animate() {
+        requestAnimationFrame(animate)
+
+        bufferScene.rotation.x += 0.01
+        bufferScene.rotation.y += 0.02
+
+        renderer.render(bufferScene, bufferCamera, bufferTexture)
+        renderer.render(scene, camera)
+      }
+      animate()
+
+      //update the canvas
+      window.addEventListener('resize', function() {
+        var WIDTH = window.innerWidth
+        var HEIGHT = window.innerHeight
+        renderer.setSize(WIDTH, HEIGHT)
+
+        camera.left = window.innerWidth / -2
+        camera.right = window.innerWidth / 2
+        camera.top = window.innerHeight / 2
+        camera.bottom = window.innerHeight / -2
+        camera.updateProjectionMatrix()
+      })
     }
   },
   mounted() {
-    var scene = new THREE.Scene()
-
-    var bufferCamera = new THREE.PerspectiveCamera(
-      75,
-      this.bufferSize / this.bufferSize,
-      0.1,
-      1000
-    )
-    bufferCamera.position.z = this.shapeZoom
-
-    //you may need to alter the targets here
-    var bufferTexture = new THREE.WebGLRenderTarget(
-      this.bufferSize,
-      this.bufferSize,
-      {
-        minFilter: THREE.LinearMipMapLinearFilter,
-        magFilter: THREE.LinearFilter,
-        antialias: true
-      }
-    )
-
-    var camera = new THREE.OrthographicCamera(
-      window.innerWidth / -2,
-      window.innerWidth / 2,
-      window.innerHeight / 2,
-      window.innerHeight / -2,
-      0.1,
-      1000
-    )
-    camera.position.z = 5
-
-    var renderer = new THREE.WebGLRenderer({ antialias: true })
-    renderer.setSize(window.innerWidth, window.innerHeight)
-    document.body.appendChild(renderer.domElement)
-
-    var bufferScene = new THREE.Scene()
-
-    /// buffer scene objects
-
-    var allShapes = []
-    this.createShapes(allShapes, bufferScene)
-
-    var pointLight = new THREE.PointLight(0x404040)
-    pointLight.position.set(0, 50, -200)
-    bufferScene.add(pointLight)
-
-    /// main scene objects
-    var ambientLight = new THREE.AmbientLight(0x404040)
-    scene.add(ambientLight)
-
-    var pointLight3 = new THREE.PointLight(0xffffff)
-    pointLight3.position.set(-100, 200, 100)
-    scene.add(pointLight3)
-
-    this.updateGridGeometry(bufferTexture, scene)
-
-    //animate the scene
-    function animate() {
-      requestAnimationFrame(animate)
-
-      bufferScene.rotation.x += 0.01
-      bufferScene.rotation.y += 0.02
-
-      renderer.render(bufferScene, bufferCamera, bufferTexture)
-      renderer.render(scene, camera)
-    }
-    animate()
-
-    //update the canvas
-    window.addEventListener('resize', function() {
-      var WIDTH = window.innerWidth
-      var HEIGHT = window.innerHeight
-      renderer.setSize(WIDTH, HEIGHT)
-
-      camera.left = window.innerWidth / -2
-      camera.right = window.innerWidth / 2
-      camera.top = window.innerHeight / 2
-      camera.bottom = window.innerHeight / -2
-      camera.updateProjectionMatrix()
-    })
+    this.init()
   }
 }
 </script>

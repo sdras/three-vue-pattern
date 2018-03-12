@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <app-base :shape-zoom="1" :num-shapes="5" :t-config.c="2"/>
-    <app-controls />
+    <app-base :shape-zoom="1" :num-shapes="5" :t-config.c="2" :wireframe="hasWireframe" />
+    <app-controls v-model="hasWireframe" />
   </div>
 </template>
 
@@ -13,6 +13,11 @@ export default {
   components: {
     AppBase,
     AppControls
+  },
+  data() {
+    return {
+      hasWireframe: false
+    }
   }
 }
 </script>
