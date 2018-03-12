@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <app-base :shape-zoom="1" :num-shapes="5" />
+    <app-base :shape-zoom="1" :num-shapes="5" :t-config.a="10" :wireframe="true"/>
   </div>
 </template>
 

@@ -1,11 +1,8 @@
 <template>
-  <div>
-  </div>
+  <div></div>
 </template>
 
 <script>
-import { OrbitControls } from 'orbit-controls'
-import { TrackballControls } from 'three-trackballcontrols'
 import * as THREE from 'three'
 
 export default {
@@ -44,6 +41,16 @@ export default {
       type: [Number, String],
       default: 0x00ffff,
       required: false
+    },
+    tConfig: {
+      type: Object,
+      default: {
+        a: 2,
+        b: 3,
+        c: 100,
+        d: 3
+      },
+      required: false
     }
   },
   data() {
@@ -56,7 +63,12 @@ export default {
   methods: {
     createShapes(allShapes, bufferScene) {
       for (var i = 0; i < this.numShapes; i++) {
-        var shape = new THREE.TorusKnotGeometry(10, 3, 100, 16),
+        var shape = new THREE.TorusKnotGeometry(
+            this.tConfig.a,
+            this.tConfig.b,
+            this.tConfig.c,
+            this.tConfig.d
+          ),
           material
         if (this.rainbow) {
           material = new THREE.MeshNormalMaterial({
@@ -77,8 +89,6 @@ export default {
       }
     },
     updateGridGeometry(bufferTexture, scene) {
-      console.log('updating geometry')
-
       scene.remove(this.tileHolder)
 
       var theta = 0
@@ -250,11 +260,15 @@ export default {
     bufferCamera.position.z = this.shapeZoom
 
     //you may need to alter the targets here
-    var bufferTexture = new THREE.WebGLRenderTarget(800, 800, {
-      minFilter: THREE.LinearMipMapLinearFilter,
-      magFilter: THREE.LinearFilter,
-      antialias: true
-    })
+    var bufferTexture = new THREE.WebGLRenderTarget(
+      this.bufferSize,
+      this.bufferSize,
+      {
+        minFilter: THREE.LinearMipMapLinearFilter,
+        magFilter: THREE.LinearFilter,
+        antialias: true
+      }
+    )
 
     var camera = new THREE.OrthographicCamera(
       window.innerWidth / -2,
@@ -277,9 +291,6 @@ export default {
     var allShapes = []
     this.createShapes(allShapes, bufferScene)
 
-    var ambientLight = new THREE.AmbientLight(0x808080)
-    bufferScene.add(ambientLight)
-
     var pointLight = new THREE.PointLight(0x404040)
     pointLight.position.set(0, 50, -200)
     bufferScene.add(pointLight)
@@ -294,33 +305,7 @@ export default {
 
     this.updateGridGeometry(bufferTexture, scene)
 
-    // test plane
-    var planeMat = new THREE.MeshBasicMaterial({
-      map: bufferTexture,
-      side: THREE.DoubleSide
-    })
-    var planeGeo = new THREE.PlaneGeometry(
-      this.bufferSize / 2,
-      this.bufferSize / 2
-    )
-    var planeObj = new THREE.Mesh(planeGeo, planeMat)
-    scene.add(planeObj)
-    planeObj.visible = false
-
-    function randomize() {
-      for (var i = 0; i < this.numShapes; i++) {
-        allShapes[i].update()
-        bufferScene.remove(allShapes[i].mesh)
-      }
-      createShapes()
-    }
-
-    function randomizeColor() {
-      for (var i = 0; i < this.numShapes; i++) {
-        allShapes[i].randomizeColor()
-      }
-    }
-
+    //animate the scene
     function animate() {
       requestAnimationFrame(animate)
 
@@ -332,6 +317,7 @@ export default {
     }
     animate()
 
+    //update the canvas
     window.addEventListener('resize', function() {
       var WIDTH = window.innerWidth
       var HEIGHT = window.innerHeight
@@ -342,14 +328,6 @@ export default {
       camera.top = window.innerHeight / 2
       camera.bottom = window.innerHeight / -2
       camera.updateProjectionMatrix()
-    })
-
-    window.addEventListener('keydown', function(e) {
-      e = e || window.event
-
-      if (e.keyCode == '32') {
-        this.isPaused = !this.isPaused
-      }
     })
   }
 }
