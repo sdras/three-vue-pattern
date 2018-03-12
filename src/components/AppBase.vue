@@ -37,10 +37,11 @@ export default {
     },
     rainbow: {
       type: Boolean,
-      default: false,
+      default: true,
       required: false
     },
     color: {
+      type: [Number, String],
       default: 0x00ffff,
       required: false
     }
@@ -49,10 +50,6 @@ export default {
     return {
       tileHolder: new THREE.Object3D(),
       bufferSize: 800,
-      showTexture: false, //not used anywhere
-      speed: 0.5, //not used anywhere
-      saturation: 1.0, //not used anywhere
-      lightness: 1.0, //not used anywhere
       isPaused: false //at the end
     }
   },
@@ -66,10 +63,11 @@ export default {
             wireframe: this.wireframe
           })
         } else {
-          material = new THREE.MeshBasicMaterial({
+          material = new THREE.MeshPhongMaterial({
             color: this.color,
+            shininess: 90,
             wireframe: this.wireframe,
-            transparent: true
+            emissive: 0x6e163f
           })
         }
         var torusKnot = new THREE.Mesh(shape, material)
@@ -281,10 +279,6 @@ export default {
 
     var ambientLight = new THREE.AmbientLight(0x808080)
     bufferScene.add(ambientLight)
-
-    var pointLight = new THREE.PointLight(0xaaaaaa)
-    pointLight.position.set(0, 50, 200)
-    bufferScene.add(pointLight)
 
     var pointLight = new THREE.PointLight(0x404040)
     pointLight.position.set(0, 50, -200)
