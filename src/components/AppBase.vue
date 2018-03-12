@@ -43,7 +43,7 @@ export default {
       required: false
     },
     tConfig: {
-      type: Object,
+      type: [Object, Number],
       default: {
         a: 2,
         b: 3,
