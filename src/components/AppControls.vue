@@ -24,7 +24,7 @@
     <div id="app">
       <span v-for="option in options">
         <input type="checkbox" :id="option.value" :value="option.value" v-model="checkedOpts">
-        <label for="option.value"> {{option.value}}</label>
+        <label for="option.value">{{ option.value }}</label>
       </span>
 
       <br>
@@ -58,10 +58,6 @@ export default {
     }
   },
   methods: {
-    changeWire() {
-      // this.wireframe = !this.wireframe
-      // this.$emit('input', this.wireframe)
-    },
     changeRainbow() {
       console.log('fired')
       this.rainbow = !this.rainbow

@@ -32,6 +32,11 @@ export default {
       default: true,
       required: false
     },
+    emissive: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
     color: {
       type: [Number, String],
       default: 0x00ffff,
@@ -115,7 +120,7 @@ export default {
           color: this.color,
           shininess: 90,
           wireframe: this.wireframe,
-          emissive: 0x6e163f
+          emissive: this.emissive ? 0x4193ea : 0x000000
         })
       }
 
