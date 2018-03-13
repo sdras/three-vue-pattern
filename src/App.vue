@@ -3,12 +3,14 @@
 
     <app-recorder></app-recorder>
 
+    <app-vuex></app-vuex>
+
     <!--excited-->
-    <app-base 
+    <!-- <app-base 
       :shape-zoom="2" 
       :t-config.a="1" 
       :t-config.b="200" 
-    />
+    /> -->
 
     <!-- tense
     <app-base 
@@ -73,6 +75,10 @@ body {
   background-color: black;
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 300;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 canvas {
   width: 100%;

@@ -4,23 +4,26 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
-const SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent;
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition
+const SpeechGrammarList =
+  window.SpeechGrammarList || window.webkitSpeechGrammarList
+const SpeechRecognitionEvent =
+  window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent
 
 if (!SpeechRecognition) {
   // uh shit browser doesn't support speech, do things here
 }
 
-const recognition = new SpeechRecognition();
+const recognition = new SpeechRecognition()
 
 // put true here if you the speech to keep recording after it gets a result, leave false if you want the speech to end after it gets a result
 // this also means you'll need to stop speech at some point by calling `recognition.abort()`
-recognition.continuous = false;
+recognition.continuous = false
 
-recognition.lang = 'en-US';
-recognition.interimResults = false;
-recognition.maxAlternatives = 1;
+recognition.lang = 'en-US'
+recognition.interimResults = false
+recognition.maxAlternatives = 1
 
 export default new Vuex.Store({
   state: {
@@ -33,7 +36,7 @@ export default new Vuex.Store({
     // idle - awaiting user input
     // listening - listening to user input
     // fetching - fetching user data from the API
-    uiState: 'idle' 
+    uiState: 'idle'
   },
   //showing things, not mutating state
   getters: {
@@ -48,14 +51,14 @@ export default new Vuex.Store({
     increment: (state, num) => {
       state.counter += num
     },
-    newIntent: (state, {intent, score}) => {
+    newIntent: (state, { intent, score }) => {
       // the score is how confident the API is in the intent it gave
       // on a scale from 0 to 1, where score > .7 is considered to be
       // decently confident; I set that thresh hold at .3 for my CodePen
-      // because I probably didn't train it well enough but it worked 
+      // because I probably didn't train it well enough but it worked
       // well enough for the demo
       state.intent = intent
-      state.score = score;
+      state.score = score
     },
     setUiState: (state, status) => {
       state.uiState = status
@@ -81,12 +84,12 @@ export default new Vuex.Store({
       }
     },
 
-    getUnderstanding ({commit}, utterance) {
+    getUnderstanding({ commit }, utterance) {
       commit('setUiState', 'fetching')
-      const url = `https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/75419c7d-260b-4404-9978-343b16b22b19`;
+      const url = `https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/75419c7d-260b-4404-9978-343b16b22b19`
 
       axios({
-        method: "get",
+        method: 'get',
         url,
         params: {
           verbose: true,
@@ -94,16 +97,18 @@ export default new Vuex.Store({
           q: utterance
         },
         headers: {
-          "Content-Type": "application/json",
-          "Ocp-Apim-Subscription-Key": "dac1f04f2a85466cb25bc4154692ab91"
+          'Content-Type': 'application/json',
+          'Ocp-Apim-Subscription-Key': 'dac1f04f2a85466cb25bc4154692ab91'
         }
-      }).then(({data}) => {
-        console.log('axios result', data);
-        commit('newIntent', data.topScoringIntent)
-        commit('setUiState', 'idle')
-      }).catch((err) => {
-        console.error('axios error', err)
       })
+        .then(({ data }) => {
+          console.log('axios result', data)
+          commit('newIntent', data.topScoringIntent)
+          commit('setUiState', 'idle')
+        })
+        .catch(err => {
+          console.error('axios error', err)
+        })
     }
   }
 })
