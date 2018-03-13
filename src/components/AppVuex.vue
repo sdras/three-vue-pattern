@@ -1,9 +1,8 @@
 <template>
   <div>
     <p>The state for counter from the store is {{ counter }}</p>
-    <p>The getter for triple counter from the store is {{ triple }}</p>
-    <p>Let's increment by two with a mutation: <button @click="increment">Increment</button></p>
-    <p>Let's increment by two with an action async: <button @click="asyncInc">Wait 1s and add 10</button></p>
+    <p> uiState: {{ uiState }} | intent: {{ intent}} | score: {{ score }}</p>
+    <p>Fetch from API: <button @click="getNewIntent">fetch it</button></p>
   </div>
 </template>
 
@@ -15,6 +14,15 @@ export default {
     },
     triple() {
       return this.$store.getters.tripleCounter
+    },
+    uiState() {
+      return this.$store.state.uiState
+    },
+    intent() {
+      return this.$store.state.intent
+    },
+    score() {
+      return this.$store.state.score
     }
   },
   methods: {
@@ -23,6 +31,9 @@ export default {
     },
     asyncInc() {
       this.$store.dispatch('incrementAsync', 10)
+    },
+    getNewIntent() {
+      this.$store.dispatch('getSpeech')
     }
   }
 }
