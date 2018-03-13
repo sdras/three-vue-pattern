@@ -29,6 +29,7 @@ export default new Vuex.Store({
   state: {
     counter: 0,
     intent: 'None',
+    intensity: 'None',
     score: 0,
 
     // feel free to change this, thought it may help
@@ -42,6 +43,16 @@ export default new Vuex.Store({
   getters: {
     tripleCounter: state => {
       return state.counter * 3
+    },
+    intentStr: state => {
+      var str = state.intent
+      str = str.replace(/\b(App.)\b/gi, '')
+      return str
+    },
+    intensityStr: state => {
+      var str = state.intensity
+      str = str.replace(/\b(Intensity.)\b/gi, '')
+      return str
     }
   },
   //mutating the state
@@ -57,7 +68,18 @@ export default new Vuex.Store({
       // decently confident; I set that thresh hold at .3 for my CodePen
       // because I probably didn't train it well enough but it worked
       // well enough for the demo
-      state.intent = intent
+      if (intent.includes('Intensity')) {
+        console.log('intensity updated')
+        state.intensity = intent
+        if (intent.includes('More')) {
+          state.counter++
+        } else if (intent.includes('Less')) {
+          state.counter--
+        }
+      } else {
+        console.log('intent updated')
+        state.intent = intent
+      }
       state.score = score
     },
     setUiState: (state, status) => {
@@ -67,15 +89,7 @@ export default new Vuex.Store({
       state.intent = status
     }
   },
-  //commits the mutation, it's asynchronous
   actions: {
-    // showing passed with payload
-    incrementAsync({ commit }, num) {
-      setTimeout(() => {
-        commit('increment', num)
-      }, 1000)
-    },
-
     getSpeech({ dispatch, commit }) {
       commit('setUiState', 'listening')
       recognition.start()

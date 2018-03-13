@@ -82,3 +82,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+canvas {
+  background: black;
+  width: 500px;
+}
+</style>
