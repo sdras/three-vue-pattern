@@ -1,7 +1,8 @@
 <template>
   <main>
     <h1>How do you feel?</h1>
-    <p class="big"><span>Some options... </span><em>calm, tense, excited, nervous, frustrated, content, tipsy</em></p>
+    <p class="big"><span>Some options... </span><br>
+    <em>calm, tense, excited, nervous, frustrated, content, tipsy</em></p>
     <p><span>Hit the button and start recording</span></p>
     <div><button @click="getNewIntent" :class="{ disabled: uiState === 'listening' }"></button></div>
     <app-sineloader v-if="uiState === 'listening'"/>
@@ -30,8 +31,16 @@ export default {
 
 <style scoped>
 main {
+  margin-top: 40px;
+  padding: 20px;
   text-align: center;
-  margin-top: 10vh;
+  background: black;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 500px;
+  height: 300px;
+  margin-left: -250px;
 }
 
 h1 {
@@ -40,6 +49,7 @@ h1 {
 
 p.big {
   font-size: 20px;
+  line-height: 1.5;
 }
 
 span {

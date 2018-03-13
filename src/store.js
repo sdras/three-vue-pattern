@@ -62,6 +62,9 @@ export default new Vuex.Store({
     },
     setUiState: (state, status) => {
       state.uiState = status
+    },
+    setIntent: (state, status) => {
+      state.intent = status
     }
   },
   //commits the mutation, it's asynchronous

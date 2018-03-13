@@ -2,7 +2,7 @@
   <div id="app">
 
     <app-recorder v-if="intent === 'None'"></app-recorder>
-    <app-emotionstatus v-if="intent !== 'None'" />
+    <app-emotionstatus v-if="intent !== 'None'" :emotion="intent" />
 
     <app-base 
       v-if="intent === 'Excited'"

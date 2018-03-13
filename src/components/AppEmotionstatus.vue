@@ -1,7 +1,7 @@
 <template>
   <aside>
     <h2 class="emotion">Feeling {{ emotion }}</h2>
-    <button>Go back and try again!</button>
+    <button @click="goBack">Go back and try again!</button>
   </aside>
 </template>
 
@@ -9,9 +9,13 @@
 export default {
   props: {
     emotion: {
-      type: 'String',
       default: 'Excited',
       required: true
+    }
+  },
+  methods: {
+    goBack() {
+      this.$store.commit('setIntent', 'None')
     }
   }
 }
