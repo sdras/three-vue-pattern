@@ -13,11 +13,11 @@ export default {
       var waves = new SineWaves({
         el: this.$refs.waves,
 
-        speed: 5,
+        speed: 20,
 
         ease: 'SineInOut',
 
-        wavesWidth: '75%',
+        wavesWidth: '50%',
 
         waves: [
           {
