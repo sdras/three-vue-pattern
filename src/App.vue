@@ -2,8 +2,7 @@
   <div id="app">
 
     <app-recorder v-if="intent === 'None'"></app-recorder>
-
-    <h2 v-if="intent !== 'None'" class="emotion">{{ intent }}</h2>
+    <app-emotionstatus v-if="intent !== 'None'" />
 
     <app-base 
       v-if="intent === 'Excited'"
@@ -50,12 +49,14 @@
 import AppVuex from './components/AppVuex.vue'
 import AppBase from './components/AppBase.vue'
 import AppRecorder from './components/AppRecorder.vue'
+import AppEmotionstatus from './components/AppEmotionstatus.vue'
 
 export default {
   components: {
     AppVuex,
     AppBase,
-    AppRecorder
+    AppRecorder,
+    AppEmotionstatus
   },
   data() {
     return {
@@ -87,11 +88,5 @@ body {
 canvas {
   width: 100%;
   height: 100%;
-}
-h2.emotion {
-  margin-top: 40px;
-  padding: 10px;
-  background: black;
-  position: absolute;
 }
 </style>
