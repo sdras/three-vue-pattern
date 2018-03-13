@@ -3,8 +3,8 @@
     <h1>How do you feel?</h1>
     <p class="big">Some options... calm, tense, excited, nervous, frustrated, content, tipsy</p>
     <p>Hit the button and start recording</p>
-    <div><button @click="getNewIntent"></button></div>
-    <app-sineloader />
+    <div><button @click="getNewIntent" :class="{ disabled: uiState === 'listening' }"></button></div>
+    <app-sineloader v-if="uiState === 'listening'"/>
   </main>
 </template>
 
@@ -46,5 +46,11 @@ button {
   border: none;
   outline: 0;
   cursor: pointer;
+  transition: 0.3s all ease-out;
+}
+
+button.disabled {
+  background: #ccc;
+  cursor: none;
 }
 </style>

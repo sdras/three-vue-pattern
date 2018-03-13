@@ -1,51 +1,48 @@
 <template>
   <div id="app">
 
-    <app-recorder></app-recorder>
+    <app-recorder v-if="intent === 'None'"></app-recorder>
 
-    <app-vuex></app-vuex>
+    <h2 v-if="intent !== 'None'" class="emotion">{{ intent }}</h2>
 
-    <!--excited-->
-    <!-- <app-base 
+    <app-base 
+      v-if="intent === 'Excited'"
       :shape-zoom="2" 
       :t-config.a="1" 
       :t-config.b="200" 
-    /> -->
+    />
 
-    <!-- tense
     <app-base 
+      v-if="intent === 'Tense'"
       :shape-zoom="2" 
       :t-config.a="1"  
       :color="0xff0000"
       :wireframe="true"
       :rainbow="false"
       :emissive="true"
-    />-->
+    />
 
-    <!--happy
     <app-base 
+      v-if="intent === 'Content'"
       :shape-zoom="2" 
       :t-config.a="1" 
       :t-config.c="10"  
-    />-->
+    />
 
-    <!--calm
-    <app-base :t-config.a="1"  />
-    -->
-
-    <!-- tipsy
-    <app-base :shape-zoom="1" />
-    -->
-
-    <!--frustrated
     <app-base 
+      v-if="intent === 'Frustrated'"
       :shape-zoom="3" 
       :t-config.a="1" 
       :t-config.c="3" 
       :wireframe="false" 
       :rainbow="false" 
       :color="0x3964e8" 
-    />-->
+    />
+
+    <app-base v-if="intent === 'Calm'" :t-config.a="1"  />
+   
+    <app-base v-if="intent === 'Tipsy'" :shape-zoom="1" />
+    
   </div>
 </template>
 
@@ -63,6 +60,13 @@ export default {
   data() {
     return {
       zoomNum: 3
+    }
+  },
+  computed: {
+    intent() {
+      var str = this.$store.state.intent
+      str = str.replace(/\b(App.)\b/gi, '')
+      return str
     }
   }
 }
@@ -83,5 +87,11 @@ body {
 canvas {
   width: 100%;
   height: 100%;
+}
+h2.emotion {
+  margin-top: 40px;
+  padding: 10px;
+  background: black;
+  position: absolute;
 }
 </style>
