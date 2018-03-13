@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "orbit-controls": "^1.2.4",
+    "sine-waves": "^0.3.0",
     "stats-js": "^1.0.0-alpha1",
     "three": "^0.90.0",
     "three-trackballcontrols": "^0.0.7",

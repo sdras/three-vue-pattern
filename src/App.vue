@@ -1,25 +1,66 @@
 <template>
   <div id="app">
-    <app-base :shape-zoom="1" :num-shapes="5" :t-config.c="2" :wireframe="hasWireframe" />
-    <app-controls v-model="hasWireframe" />
-    <app-vuex />
+
+    <app-recorder></app-recorder>
+
+    <!--excited-->
+    <app-base 
+      :shape-zoom="2" 
+      :t-config.a="1" 
+      :t-config.b="200" 
+    />
+
+    <!-- tense
+    <app-base 
+      :shape-zoom="2" 
+      :t-config.a="1"  
+      :color="0xff0000"
+      :wireframe="true"
+      :rainbow="false"
+      :emissive="true"
+    />-->
+
+    <!--happy
+    <app-base 
+      :shape-zoom="2" 
+      :t-config.a="1" 
+      :t-config.c="10"  
+    />-->
+
+    <!--calm
+    <app-base :t-config.a="1"  />
+    -->
+
+    <!-- tipsy
+    <app-base :shape-zoom="1" />
+    -->
+
+    <!--frustrated
+    <app-base 
+      :shape-zoom="3" 
+      :t-config.a="1" 
+      :t-config.c="3" 
+      :wireframe="false" 
+      :rainbow="false" 
+      :color="0x3964e8" 
+    />-->
   </div>
 </template>
 
 <script>
 import AppVuex from './components/AppVuex.vue'
 import AppBase from './components/AppBase.vue'
-import AppControls from './components/AppControls.vue'
+import AppRecorder from './components/AppRecorder.vue'
 
 export default {
   components: {
     AppVuex,
     AppBase,
-    AppControls
+    AppRecorder
   },
   data() {
     return {
-      hasWireframe: false
+      zoomNum: 3
     }
   }
 }

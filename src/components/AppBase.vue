@@ -12,11 +12,6 @@ export default {
       default: 3,
       required: false
     },
-    numShapes: {
-      type: Number,
-      default: 3,
-      required: false
-    },
     numAxes: {
       type: Number,
       default: 12,
@@ -37,6 +32,11 @@ export default {
       default: true,
       required: false
     },
+    emissive: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
     color: {
       type: [Number, String],
       default: 0x00ffff,
@@ -55,6 +55,25 @@ export default {
   },
   data() {
     return {
+      bufferScene: new THREE.Scene(),
+      bufferCamera: new THREE.PerspectiveCamera(75, 800 / 800, 0.1, 1000),
+      bufferTexture: new THREE.WebGLRenderTarget(800, 800, {
+        minFilter: THREE.LinearMipMapLinearFilter,
+        magFilter: THREE.LinearFilter,
+        antialias: true
+      }),
+      camera: new THREE.OrthographicCamera(
+        window.innerWidth / -2,
+        window.innerWidth / 2,
+        window.innerHeight / 2,
+        window.innerHeight / -2,
+        0.1,
+        1000
+      ),
+      renderer: new THREE.WebGLRenderer({ antialias: true }),
+      scene: new THREE.Scene(),
+      storeRAF: null,
+      torusKnot: null,
       tileHolder: new THREE.Object3D(),
       bufferSize: 800,
       isPaused: false //at the end
@@ -62,44 +81,69 @@ export default {
   },
   watch: {
     wireframe() {
-      this.init()
+      this.createShapes()
+      cancelAnimationFrame(this.storeRAF)
+      this.animate()
+    },
+    shapeZoom() {
+      this.createShapes()
+      cancelAnimationFrame(this.storeRAF)
+      this.animate()
     }
   },
   methods: {
-    createShapes(allShapes, bufferScene) {
-      for (var i = 0; i < this.numShapes; i++) {
-        var shape = new THREE.TorusKnotGeometry(
-            this.tConfig.a,
-            this.tConfig.b,
-            this.tConfig.c,
-            this.tConfig.d
-          ),
-          material
-        if (this.rainbow) {
-          material = new THREE.MeshNormalMaterial({
-            wireframe: this.wireframe
-          })
-        } else {
-          material = new THREE.MeshPhongMaterial({
-            color: this.color,
-            shininess: 90,
-            wireframe: this.wireframe,
-            emissive: 0x6e163f
-          })
-        }
-        //shape.attributes.position.needsUpdate = true
-        //material.wireframe.needsUpdate = true
+    createShapes() {
+      this.bufferCamera.position.z = this.shapeZoom
 
-        var torusKnot = new THREE.Mesh(shape, material)
-        console.log(torusKnot)
-        torusKnot.material.needsUpdate = true
-
-        bufferScene.add(torusKnot)
-        allShapes[i] = shape
+      if (this.torusKnot !== null) {
+        console.log(this.torusKnot)
+        this.torusKnot.material.dispose()
+        this.torusKnot.geometry.dispose()
+        this.bufferScene.remove(this.torusKnot)
+        console.log(this.bufferScene.children)
       }
+
+      var shape = new THREE.TorusKnotGeometry(
+          this.tConfig.a,
+          this.tConfig.b,
+          this.tConfig.c,
+          this.tConfig.d
+        ),
+        material
+
+      if (this.rainbow) {
+        material = new THREE.MeshNormalMaterial({
+          wireframe: this.wireframe
+        })
+      } else {
+        material = new THREE.MeshPhongMaterial({
+          color: this.color,
+          shininess: 90,
+          wireframe: this.wireframe,
+          emissive: this.emissive ? 0x4193ea : 0x000000
+        })
+      }
+
+      this.torusKnot = new THREE.Mesh(shape, material)
+      this.torusKnot.material.needsUpdate = true
+
+      this.bufferScene.add(this.torusKnot)
     },
-    updateGridGeometry(bufferTexture, scene) {
-      scene.remove(this.tileHolder)
+    animate() {
+      this.storeRAF = requestAnimationFrame(this.animate)
+
+      this.bufferScene.rotation.x += 0.01
+      this.bufferScene.rotation.y += 0.02
+
+      this.renderer.render(
+        this.bufferScene,
+        this.bufferCamera,
+        this.bufferTexture
+      )
+      this.renderer.render(this.scene, this.camera)
+    },
+    updateGridGeometry() {
+      this.scene.remove(this.tileHolder)
 
       var theta = 0
       var numSteps = this.numAxes
@@ -222,7 +266,7 @@ export default {
 
       var tileMat = new THREE.MeshBasicMaterial({
         //main object
-        map: bufferTexture,
+        map: this.bufferTexture,
         side: THREE.DoubleSide
       })
 
@@ -255,88 +299,47 @@ export default {
         this.tileHolder.add(tileRowBottom)
       }
 
-      scene.add(this.tileHolder)
+      this.scene.add(this.tileHolder)
     },
     init() {
-      var scene = new THREE.Scene()
+      this.camera.position.z = 5
 
-      var bufferCamera = new THREE.PerspectiveCamera(
-        75,
-        this.bufferSize / this.bufferSize,
-        0.1,
-        1000
-      )
-      bufferCamera.position.z = this.shapeZoom
+      this.renderer.setSize(window.innerWidth, window.innerHeight)
+      document.body.appendChild(this.renderer.domElement)
 
-      //you may need to alter the targets here
-      var bufferTexture = new THREE.WebGLRenderTarget(
-        this.bufferSize,
-        this.bufferSize,
-        {
-          minFilter: THREE.LinearMipMapLinearFilter,
-          magFilter: THREE.LinearFilter,
-          antialias: true
-        }
-      )
-
-      var camera = new THREE.OrthographicCamera(
-        window.innerWidth / -2,
-        window.innerWidth / 2,
-        window.innerHeight / 2,
-        window.innerHeight / -2,
-        0.1,
-        1000
-      )
-      camera.position.z = 5
-
-      var renderer = new THREE.WebGLRenderer({ antialias: true })
-      renderer.setSize(window.innerWidth, window.innerHeight)
-      document.body.appendChild(renderer.domElement)
-
-      var bufferScene = new THREE.Scene()
-
-      /// buffer scene objects
-
-      var allShapes = []
-      this.createShapes(allShapes, bufferScene)
+      this.createShapes()
 
       var pointLight = new THREE.PointLight(0x404040)
       pointLight.position.set(0, 50, -200)
-      bufferScene.add(pointLight)
+      this.bufferScene.add(pointLight)
 
       /// main scene objects
       var ambientLight = new THREE.AmbientLight(0x404040)
-      scene.add(ambientLight)
+      this.scene.add(ambientLight)
 
       var pointLight3 = new THREE.PointLight(0xffffff)
       pointLight3.position.set(-100, 200, 100)
-      scene.add(pointLight3)
+      this.scene.add(pointLight3)
 
-      this.updateGridGeometry(bufferTexture, scene)
+      this.updateGridGeometry(this.scene)
 
-      //animate the scene
-      function animate() {
-        requestAnimationFrame(animate)
+      //kick it off
+      this.animate()
 
-        bufferScene.rotation.x += 0.01
-        bufferScene.rotation.y += 0.02
-
-        renderer.render(bufferScene, bufferCamera, bufferTexture)
-        renderer.render(scene, camera)
-      }
-      animate()
+      //grumble
+      var vuethis = this
 
       //update the canvas
       window.addEventListener('resize', function() {
         var WIDTH = window.innerWidth
         var HEIGHT = window.innerHeight
-        renderer.setSize(WIDTH, HEIGHT)
+        vuethis.renderer.setSize(WIDTH, HEIGHT)
 
-        camera.left = window.innerWidth / -2
-        camera.right = window.innerWidth / 2
-        camera.top = window.innerHeight / 2
-        camera.bottom = window.innerHeight / -2
-        camera.updateProjectionMatrix()
+        vuethis.camera.left = window.innerWidth / -2
+        vuethis.camera.right = window.innerWidth / 2
+        vuethis.camera.top = window.innerHeight / 2
+        vuethis.camera.bottom = window.innerHeight / -2
+        vuethis.camera.updateProjectionMatrix()
       })
     }
   },

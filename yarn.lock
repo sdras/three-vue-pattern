@@ -5519,6 +5519,10 @@ signum@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/signum/-/signum-1.0.0.tgz#74a7d2bf2a20b40eba16a92b152124f1d559fa77"
 
+sine-waves@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/sine-waves/-/sine-waves-0.3.0.tgz#17aa07befc513e4b9f581e3911093f3e06bdccb4"
+
 slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
