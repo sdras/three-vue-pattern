@@ -1,6 +1,8 @@
 <template>
   <div id="app">
 
+    <app-recorder></app-recorder>
+
     <!--excited-->
     <app-base 
       :shape-zoom="2" 
@@ -42,35 +44,25 @@
       :rainbow="false" 
       :color="0x3964e8" 
     />-->
-
-    <!-- <app-controls 
-      :zoomrange.sync="zoomNum"
-      v-model="opts" 
-    /> -->
   </div>
 </template>
 
 <script>
 import AppVuex from './components/AppVuex.vue'
 import AppBase from './components/AppBase.vue'
-// import AppControls from './components/AppControls.vue'
+import AppRecorder from './components/AppRecorder.vue'
 
 export default {
   components: {
     AppVuex,
-    AppBase
-    //AppControls
+    AppBase,
+    AppRecorder
   },
   data() {
     return {
-      // opts: {
-      //   hasWireframe: false,
-      //   hasRainbow: true
-      // },
       zoomNum: 3
     }
-  },
-  computed: {}
+  }
 }
 </script>
 
