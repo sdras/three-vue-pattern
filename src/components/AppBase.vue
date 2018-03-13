@@ -93,34 +93,34 @@ export default {
         this.torusKnot.material.dispose()
         this.torusKnot.geometry.dispose()
         this.bufferScene.remove(this.torusKnot)
+        console.log(this.bufferScene.children)
       }
 
-      for (var i = 0; i < this.numShapes; i++) {
-        var shape = new THREE.TorusKnotGeometry(
-            this.tConfig.a,
-            this.tConfig.b,
-            this.tConfig.c,
-            this.tConfig.d
-          ),
-          material
-        if (this.rainbow) {
-          material = new THREE.MeshNormalMaterial({
-            wireframe: this.wireframe
-          })
-        } else {
-          material = new THREE.MeshPhongMaterial({
-            color: this.color,
-            shininess: 90,
-            wireframe: this.wireframe,
-            emissive: 0x6e163f
-          })
-        }
+      var shape = new THREE.TorusKnotGeometry(
+          this.tConfig.a,
+          this.tConfig.b,
+          this.tConfig.c,
+          this.tConfig.d
+        ),
+        material
 
-        this.torusKnot = new THREE.Mesh(shape, material)
-        this.torusKnot.material.needsUpdate = true
-
-        this.bufferScene.add(this.torusKnot)
+      if (this.rainbow) {
+        material = new THREE.MeshNormalMaterial({
+          wireframe: this.wireframe
+        })
+      } else {
+        material = new THREE.MeshPhongMaterial({
+          color: this.color,
+          shininess: 90,
+          wireframe: this.wireframe,
+          emissive: 0x6e163f
+        })
       }
+
+      this.torusKnot = new THREE.Mesh(shape, material)
+      this.torusKnot.material.needsUpdate = true
+
+      this.bufferScene.add(this.torusKnot)
     },
     animate() {
       this.storeRAF = requestAnimationFrame(this.animate)
