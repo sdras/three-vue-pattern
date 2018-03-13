@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "orbit-controls": "^1.2.4",
     "stats-js": "^1.0.0-alpha1",
     "three": "^0.90.0",
