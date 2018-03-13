@@ -1,20 +1,16 @@
 <template>
   <div>
-    <p>The state for counter from the store is {{ counter }}</p>
-    <p> uiState: {{ uiState }} | intent: {{ intent}} | score: {{ score }}</p>
-    <p>Fetch from API: <button @click="getNewIntent">fetch it</button></p>
+    <p>uiState: {{ uiState }} | intent: {{ intent }} | score: {{ score }}</p>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   computed: {
-    counter() {
-      return this.$store.state.counter
-    },
-    triple() {
-      return this.$store.getters.tripleCounter
-    },
+    // mix the getters into computed with object spread operator
+    //...mapGetters(['uiState', 'intent', 'score'])
     uiState() {
       return this.$store.state.uiState
     },
@@ -23,17 +19,6 @@ export default {
     },
     score() {
       return this.$store.state.score
-    }
-  },
-  methods: {
-    increment() {
-      this.$store.commit('increment', 2)
-    },
-    asyncInc() {
-      this.$store.dispatch('incrementAsync', 10)
-    },
-    getNewIntent() {
-      this.$store.dispatch('getSpeech')
     }
   }
 }

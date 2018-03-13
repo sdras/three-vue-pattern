@@ -1,49 +1,47 @@
 <template>
   <div id="app">
 
-    <app-recorder></app-recorder>
+    <app-recorder v-if="intent === 'None'"></app-recorder>
+    <app-emotionstatus v-if="intent !== 'None'" :emotion="intent" />
 
-    <!--excited-->
     <app-base 
+      v-if="intent === 'Excited'"
       :shape-zoom="2" 
       :t-config.a="1" 
       :t-config.b="200" 
     />
 
-    <!-- tense
     <app-base 
+      v-if="intent === 'Tense'"
       :shape-zoom="2" 
       :t-config.a="1"  
       :color="0xff0000"
       :wireframe="true"
       :rainbow="false"
       :emissive="true"
-    />-->
+    />
 
-    <!--happy
     <app-base 
+      v-if="intent === 'Content'"
       :shape-zoom="2" 
       :t-config.a="1" 
       :t-config.c="10"  
-    />-->
+    />
 
-    <!--calm
-    <app-base :t-config.a="1"  />
-    -->
-
-    <!-- tipsy
-    <app-base :shape-zoom="1" />
-    -->
-
-    <!--frustrated
     <app-base 
+      v-if="intent === 'Frustrated'"
       :shape-zoom="3" 
       :t-config.a="1" 
       :t-config.c="3" 
       :wireframe="false" 
       :rainbow="false" 
       :color="0x3964e8" 
-    />-->
+    />
+
+    <app-base v-if="intent === 'Calm'" :t-config.a="1"  />
+   
+    <app-base v-if="intent === 'Tipsy'" :shape-zoom="1" />
+    
   </div>
 </template>
 
@@ -51,16 +49,25 @@
 import AppVuex from './components/AppVuex.vue'
 import AppBase from './components/AppBase.vue'
 import AppRecorder from './components/AppRecorder.vue'
+import AppEmotionstatus from './components/AppEmotionstatus.vue'
 
 export default {
   components: {
     AppVuex,
     AppBase,
-    AppRecorder
+    AppRecorder,
+    AppEmotionstatus
   },
   data() {
     return {
       zoomNum: 3
+    }
+  },
+  computed: {
+    intent() {
+      var str = this.$store.state.intent
+      str = str.replace(/\b(App.)\b/gi, '')
+      return str
     }
   }
 }
@@ -73,6 +80,10 @@ body {
   background-color: black;
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 300;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 canvas {
   width: 100%;
