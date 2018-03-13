@@ -2,7 +2,7 @@
   <div id="app">
 
     <app-recorder v-if="intent === 'None'"></app-recorder>
-    <app-emotionstatus v-if="intent !== 'None'" :emotion="intent" />
+    <app-recordintensity v-if="intent !== 'None'" :emotion="intent" />
 
     <app-base 
       v-if="intent === 'Excited'"
@@ -10,9 +10,8 @@
       :t-config.a="1" 
       :t-config.b="200" 
     />
-
     <app-base 
-      v-if="intent === 'Tense'"
+      v-if="intent === 'Nervous'"
       :shape-zoom="2" 
       :t-config.a="1"  
       :color="0xff0000"
@@ -20,14 +19,12 @@
       :rainbow="false"
       :emissive="true"
     />
-
     <app-base 
-      v-if="intent === 'Content'"
+      v-if="intent === 'Happy'"
       :shape-zoom="2" 
       :t-config.a="1" 
       :t-config.c="10"  
     />
-
     <app-base 
       v-if="intent === 'Frustrated'"
       :shape-zoom="3" 
@@ -37,9 +34,7 @@
       :rainbow="false" 
       :color="0x3964e8" 
     />
-
     <app-base v-if="intent === 'Calm'" :t-config.a="1"  />
-   
     <app-base v-if="intent === 'Tipsy'" :shape-zoom="1" />
     
   </div>
@@ -49,14 +44,14 @@
 import AppVuex from './components/AppVuex.vue'
 import AppBase from './components/AppBase.vue'
 import AppRecorder from './components/AppRecorder.vue'
-import AppEmotionstatus from './components/AppEmotionstatus.vue'
+import AppRecordintensity from './components/AppRecordintensity.vue'
 
 export default {
   components: {
     AppVuex,
     AppBase,
     AppRecorder,
-    AppEmotionstatus
+    AppRecordintensity
   },
   data() {
     return {
@@ -65,9 +60,7 @@ export default {
   },
   computed: {
     intent() {
-      var str = this.$store.state.intent
-      str = str.replace(/\b(App.)\b/gi, '')
-      return str
+      return this.$store.getters.intentStr
     }
   }
 }

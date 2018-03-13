@@ -1,9 +1,8 @@
 <template>
   <main>
-    <h1>How do you feel?</h1>
-    <p class="big"><span>Some options... </span><br>
-    <em>excited, nervous, frustrated, happy, calm, tipsy</em></p>
-    <p><span>Hit the button and start recording</span></p>
+    <h1 class="emotion">Feeling {{ emotion }}</h1>
+    <h3>Change the intensity!</h3>
+    <p class="big"><span>Some options... </span><em>more, less</em></p>
     <div><button @click="getNewIntent" :class="{ disabled: uiState === 'listening' }"></button></div>
     <app-sineloader v-if="uiState === 'listening'"/>
   </main>
@@ -15,6 +14,12 @@ import AppSineloader from './AppSineloader.vue'
 export default {
   components: {
     AppSineloader
+  },
+  props: {
+    emotion: {
+      default: 'Excited',
+      required: true
+    }
   },
   computed: {
     uiState() {
