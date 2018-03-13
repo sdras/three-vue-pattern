@@ -12,11 +12,6 @@ export default {
       default: 3,
       required: false
     },
-    numShapes: {
-      type: Number,
-      default: 3,
-      required: false
-    },
     numAxes: {
       type: Number,
       default: 12,
@@ -84,10 +79,17 @@ export default {
       this.createShapes()
       cancelAnimationFrame(this.storeRAF)
       this.animate()
+    },
+    shapeZoom() {
+      this.createShapes()
+      cancelAnimationFrame(this.storeRAF)
+      this.animate()
     }
   },
   methods: {
     createShapes() {
+      this.bufferCamera.position.z = this.shapeZoom
+
       if (this.torusKnot !== null) {
         console.log(this.torusKnot)
         this.torusKnot.material.dispose()
@@ -295,8 +297,6 @@ export default {
       this.scene.add(this.tileHolder)
     },
     init() {
-      this.bufferCamera.position.z = this.shapeZoom
-
       this.camera.position.z = 5
 
       this.renderer.setSize(window.innerWidth, window.innerHeight)

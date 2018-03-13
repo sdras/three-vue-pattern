@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <app-base :shape-zoom="1" :num-shapes="5" :t-config.c="2" :wireframe="hasWireframe" />
-    <app-controls v-model="hasWireframe" />
+    <app-base :shape-zoom="+zoomNum" :t-config.c="2" :wireframe="hasWireframe" />
+    <app-controls 
+      :zoomrange.sync="zoomNum"
+      v-model="opts" 
+    />
   </div>
 </template>
 
@@ -18,9 +21,14 @@ export default {
   },
   data() {
     return {
-      hasWireframe: false
+      opts: {
+        hasWireframe: false,
+        hasRainbow: true
+      },
+      zoomNum: 3
     }
-  }
+  },
+  computed: {}
 }
 </script>
 

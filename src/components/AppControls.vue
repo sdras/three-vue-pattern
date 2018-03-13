@@ -5,10 +5,12 @@
     <range-slider
       class="slider"
       id="range1"
-      min="1"
-      max="10"
+      min="0"
+      max="5"
       step="1"
-      v-model="zoom">
+      v-model="zoom"
+      :value="zoomrange"
+      @input="$emit('update:zoomrange', zoom)">
     </range-slider>
     <label for="range1">Range One: <span class="num">{{ value1 }}</span></label><br>
     <range-slider
@@ -19,20 +21,20 @@
       step=".01"
       v-model="sliderValue">
     </range-slider><br><br>
-    <label for="rainbow" class="inline">Rainbow:</label>
-    <input type="checkbox" id="rainbow" v-model="rainbow" /><br><br><br>
-    <label for="wireframe" class="inline">Wireframe:</label>
-    <input 
-      type="checkbox" 
-      id="wireframe" 
-      :checked="wireframe"
-      @change="changeWire" />
+    <div id="app">
+      <span v-for="option in options">
+        <input type="checkbox" :id="option.value" :value="option.value" v-model="checkedOpts">
+        <label for="option.value"> {{option.value}}</label>
+      </span>
+
+      <br>
+      <span>Checked names: {{ checkedOpts }}</span>
+    </div>
   </aside>
 </template>
 
 <script>
 import RangeSlider from 'vue-range-slider'
-// you probably need to import built-in style
 import 'vue-range-slider/dist/vue-range-slider.css'
 
 export default {
@@ -40,14 +42,30 @@ export default {
     return {
       sliderValue: 5,
       zoom: 3,
-      rainbow: true,
-      wireframe: false
+      options: [{ value: 'wireframe' }, { value: 'rainbow' }]
+    }
+  },
+  props: {
+    zoomrange: {
+      type: [Number, String],
+      default: 3
+    },
+    checkedOpts: {
+      type: Array,
+      default() {
+        return ['rainbow']
+      }
     }
   },
   methods: {
     changeWire() {
-      this.wireframe = !this.wireframe
-      this.$emit('input', this.wireframe)
+      // this.wireframe = !this.wireframe
+      // this.$emit('input', this.wireframe)
+    },
+    changeRainbow() {
+      console.log('fired')
+      this.rainbow = !this.rainbow
+      this.$emit('input', this.rainbow)
     }
   },
   computed: {
