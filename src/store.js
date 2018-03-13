@@ -41,9 +41,6 @@ export default new Vuex.Store({
   },
   //showing things, not mutating state
   getters: {
-    tripleCounter: state => {
-      return state.counter * 3
-    },
     intentStr: state => {
       var str = state.intent
       str = str.replace(/\b(App.)\b/gi, '')

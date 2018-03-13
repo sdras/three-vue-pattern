@@ -1367,10 +1367,6 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-clamp@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/clamp/-/clamp-1.0.1.tgz#66a0e64011816e37196828fdc8c8c147312c8634"
-
 clap@^1.0.9:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/clap/-/clap-1.2.3.tgz#4f36745b32008492557f46412d66d50cb99bce51"
@@ -2029,10 +2025,6 @@ domutils@1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
-dprop@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/dprop/-/dprop-1.0.0.tgz#5f45a60a60fa3ac1d0f68b6b435831f2ff665468"
-
 duplexify@^3.4.2, duplexify@^3.5.3:
   version "3.5.4"
   resolved "https://registry.yarnpkg.com/duplexify/-/duplexify-3.5.4.tgz#4bb46c1796eabebeec4ca9a2e66b808cb7a3d8b4"
@@ -2237,7 +2229,7 @@ eventemitter3@1.x.x:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-1.2.0.tgz#1c86991d816ad1e504750e73874224ecf3bec508"
 
-events@^1.0.0, events@^1.0.2:
+events@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
 
@@ -2686,30 +2678,6 @@ getpass@^0.1.1:
   resolved "https://registry.yarnpkg.com/getpass/-/getpass-0.1.7.tgz#5eff8e3e684d569ae4cb2b1282604e8ba62149fa"
   dependencies:
     assert-plus "^1.0.0"
-
-gl-mat3@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/gl-mat3/-/gl-mat3-1.0.0.tgz#89633219ca429379a16b9185d95d41713453b912"
-
-gl-quat@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/gl-quat/-/gl-quat-1.0.0.tgz#0945ec923386f45329be5dc357b1c8c2d47586c5"
-  dependencies:
-    gl-mat3 "^1.0.0"
-    gl-vec3 "^1.0.3"
-    gl-vec4 "^1.0.0"
-
-gl-vec2@^1.0.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/gl-vec2/-/gl-vec2-1.2.0.tgz#b0af95d2a582e3ad818446a1800093fc60b8b212"
-
-gl-vec3@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/gl-vec3/-/gl-vec3-1.0.3.tgz#110fd897d0729f6398307381567d0944941bf22b"
-
-gl-vec4@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/gl-vec4/-/gl-vec4-1.0.1.tgz#97d96878281b14b532cbce101785dfd1cb340964"
 
 glob-base@^0.3.0:
   version "0.3.0"
@@ -3939,18 +3907,6 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   dependencies:
     minimist "0.0.8"
 
-mouse-event-offset@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/mouse-event-offset/-/mouse-event-offset-3.0.2.tgz#dfd86a6e248c6ba8cad53b905d5037a2063e9984"
-
-mouse-wheel@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/mouse-wheel/-/mouse-wheel-1.2.0.tgz#6d2903b1ea8fb48e61f1b53b9036773f042cdb5c"
-  dependencies:
-    right-now "^1.0.0"
-    signum "^1.0.0"
-    to-px "^1.0.1"
-
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -4287,19 +4243,6 @@ ora@^2.0.0:
     strip-ansi "^4.0.0"
     wcwidth "^1.0.1"
 
-orbit-controls@^1.2.4:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/orbit-controls/-/orbit-controls-1.2.4.tgz#d4922295964303f150d6eae7b0a54c1e90aed5fd"
-  dependencies:
-    clamp "^1.0.1"
-    defined "^1.0.0"
-    gl-quat "^1.0.0"
-    gl-vec3 "^1.0.3"
-    mouse-event-offset "^3.0.2"
-    mouse-wheel "^1.2.0"
-    quat-from-unit-vec3 "^1.0.0"
-    touch-pinch "^1.0.0"
-
 original@>=0.0.5:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/original/-/original-1.0.0.tgz#9147f93fa1696d04be61e01bd50baeaca656bd3b"
@@ -4412,10 +4355,6 @@ parse-json@^4.0.0:
   dependencies:
     error-ex "^1.3.1"
     json-parse-better-errors "^1.0.1"
-
-parse-unit@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/parse-unit/-/parse-unit-1.0.1.tgz#7e1bb6d5bef3874c28e392526a2541170291eecf"
 
 parseurl@~1.3.2:
   version "1.3.2"
@@ -4918,13 +4857,6 @@ qs@~6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 
-quat-from-unit-vec3@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/quat-from-unit-vec3/-/quat-from-unit-vec3-1.0.0.tgz#dad03e745926a1faa4574c2b5abb05d5ca17cc9d"
-  dependencies:
-    gl-quat "^1.0.0"
-    gl-vec3 "^1.0.3"
-
 query-string@^4.1.0:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
@@ -5315,10 +5247,6 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-right-now@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/right-now/-/right-now-1.0.0.tgz#6e89609deebd7dcdaf8daecc9aea39cf585a0918"
-
 rimraf@2, rimraf@^2.2.8, rimraf@^2.5.1, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
@@ -5528,10 +5456,6 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-signum@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/signum/-/signum-1.0.0.tgz#74a7d2bf2a20b40eba16a92b152124f1d559fa77"
-
 sine-waves@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/sine-waves/-/sine-waves-0.3.0.tgz#17aa07befc513e4b9f581e3911093f3e06bdccb4"
@@ -5720,10 +5644,6 @@ static-extend@^0.1.1:
   dependencies:
     define-property "^0.2.5"
     object-copy "^0.1.0"
-
-stats-js@^1.0.0-alpha1:
-  version "1.0.0-alpha1"
-  resolved "https://registry.yarnpkg.com/stats-js/-/stats-js-1.0.0-alpha1.tgz#44ae82e6421123bab99750d95c3f5526b8f257db"
 
 "statuses@>= 1.3.1 < 2":
   version "1.4.0"
@@ -5939,10 +5859,6 @@ thread-loader@^1.1.5:
     loader-runner "^2.3.0"
     loader-utils "^1.1.0"
 
-three-trackballcontrols@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/three-trackballcontrols/-/three-trackballcontrols-0.0.7.tgz#42cae1f6856d5f889eaae3a0e2fca9d214793e91"
-
 three@^0.90.0:
   version "0.90.0"
   resolved "https://registry.yarnpkg.com/three/-/three-0.90.0.tgz#be478e7c0f82c5ae742c197db1e38e58b6190d1b"
@@ -5982,12 +5898,6 @@ to-object-path@^0.3.0:
   dependencies:
     kind-of "^3.0.2"
 
-to-px@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/to-px/-/to-px-1.0.1.tgz#5bbaed5e5d4f76445bcc903c293a2307dd324646"
-  dependencies:
-    parse-unit "^1.0.1"
-
 to-regex-range@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/to-regex-range/-/to-regex-range-2.1.1.tgz#7c80c17b9dfebe599e27367e0d4dd5590141db38"
@@ -6013,15 +5923,6 @@ topo@2.x.x:
 toposort@^1.0.0:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/toposort/-/toposort-1.0.6.tgz#c31748e55d210effc00fdcdc7d6e68d7d7bb9cec"
-
-touch-pinch@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/touch-pinch/-/touch-pinch-1.0.1.tgz#52f2aeee263139730570d0ccdf8d443a92b3b36d"
-  dependencies:
-    dprop "^1.0.0"
-    events "^1.0.2"
-    gl-vec2 "^1.0.0"
-    mouse-event-offset "^3.0.2"
 
 tough-cookie@~2.3.0, tough-cookie@~2.3.3:
   version "2.3.4"

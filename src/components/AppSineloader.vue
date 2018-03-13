@@ -1,5 +1,7 @@
 <template>
-  <canvas ref="waves"></canvas>
+  <div>
+    <canvas ref="waves"></canvas>
+  </div>
 </template>
 
 <script>
@@ -84,8 +86,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-canvas {
+div {
   background: black;
-  width: 500px;
 }
 </style>

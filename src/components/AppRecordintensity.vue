@@ -37,14 +37,13 @@ export default {
 <style scoped>
 main {
   margin-top: 40px;
-  padding: 20px;
+  padding: 20px 20px 40px;
   text-align: center;
   background: black;
   position: absolute;
   top: 20px;
   left: 50%;
   width: 500px;
-  height: 300px;
   margin-left: -250px;
 }
 

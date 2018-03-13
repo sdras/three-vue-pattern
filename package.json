@@ -8,11 +8,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "orbit-controls": "^1.2.4",
     "sine-waves": "^0.3.0",
-    "stats-js": "^1.0.0-alpha1",
     "three": "^0.90.0",
-    "three-trackballcontrols": "^0.0.7",
     "vue": "^2.5.13",
     "vue-range-slider": "^0.6.0",
     "vuex": "^3.0.1"
