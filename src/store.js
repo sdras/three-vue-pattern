@@ -147,5 +147,10 @@ const altMaps = {
   plus: 'Intensity.Less',
   Plus: 'Intensity.Less',
   last: 'Intensity.Less',
-  Last: 'Intensity.Less'
+  Last: 'Intensity.Less',
+  Rush: 'Intensity.Less',
+  bless: 'Intensity.Less',
+  Bless: 'Intensity.Less',
+  Bess: 'Intensity.Less',
+  bess: 'Intensity.Less'
 }
