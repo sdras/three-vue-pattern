@@ -26,7 +26,6 @@
       v-if="intent === 'Frustrated'"
       :t-config.a="1" 
       :t-config.c="3" 
-      :wireframe="false" 
       :rainbow="false" 
       :color="0x3964e8" 
     />
@@ -50,7 +49,7 @@ export default {
   computed: {
     intent() {
       return this.$store.getters.intentStr
-    },
+    }
   }
 }
 </script>

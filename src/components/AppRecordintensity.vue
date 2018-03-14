@@ -1,19 +1,25 @@
 <template>
-  <main>
-    <h1 class="emotion">Feeling {{ emotion }}</h1>
-    <h3>Change the intensity!</h3>
-    <p class="big"><span>Some options... </span><em>add, subtract</em></p>
-    <div><button @click="getNewIntent" :class="{ disabled: uiState === 'listening' }"></button></div>
-    <app-sineloader v-if="uiState === 'listening'"/>
-  </main>
+  <div>
+    <main>
+      <h1 class="emotion">Feeling {{ emotion }}</h1>
+      <h3>Change the intensity!</h3>
+      <p class="big"><span>Some options... </span><em>add, subtract</em></p>
+      <div><button class="recording" @click="getNewIntent" :class="{ disabled: uiState === 'listening' }"></button></div>
+      <app-sineloader v-if="uiState === 'listening'"/>
+    </main>
+
+    <app-refresh />
+  </div>
 </template>
 
 <script>
 import AppSineloader from './AppSineloader.vue'
+import AppRefresh from './AppRefresh.vue'
 
 export default {
   components: {
-    AppSineloader
+    AppSineloader,
+    AppRefresh
   },
   props: {
     emotion: {
@@ -34,7 +40,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 main {
   margin-top: 40px;
   padding: 20px 20px 40px;

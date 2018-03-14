@@ -17,7 +17,13 @@ const SpeechRecognitionEvent =
 const altMaps = {
   gypsy: 'App.Tipsy',
   call: 'App.Calm',
-  Les: 'Intensity.Less'
+  Les: 'Intensity.Less',
+  bus: 'Intensity.Less',
+  Bus: 'Intensity.Less',
+  plus: 'Intensity.Less',
+  Plus: 'Intensity.Less',
+  last: 'Intensity.Less',
+  Last: 'Intensity.Less'
 }
 
 if (!SpeechRecognition) {
