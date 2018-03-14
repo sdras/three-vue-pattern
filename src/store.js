@@ -103,9 +103,9 @@ export default new Vuex.Store({
 
     getUnderstanding({ commit }, utterance) {
       commit('setUiState', 'fetching')
-      const url = `https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/75419c7d-260b-4404-9978-343b16b22b19`
+      const url = `https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4aba2274-c5df-4b0d-8ff7-57658254d042`
 
-      axios({
+      https: axios({
         method: 'get',
         url,
         params: {
@@ -115,13 +115,16 @@ export default new Vuex.Store({
         },
         headers: {
           'Content-Type': 'application/json',
-          'Ocp-Apim-Subscription-Key': 'dac1f04f2a85466cb25bc4154692ab91'
+          'Ocp-Apim-Subscription-Key': '6c85f08d11e84b59b655b8a919b9e286'
         }
       })
         .then(({ data }) => {
           console.log('axios result', data)
           if (altMaps.hasOwnProperty(data.query)) {
-            commit('newIntent', { intent: altMaps[data.query], score: 1 })
+            commit('newIntent', {
+              intent: altMaps[data.query],
+              score: 1
+            })
           } else {
             commit('newIntent', data.topScoringIntent)
           }
