@@ -52,7 +52,6 @@ export default new Vuex.Store({
   mutations: {
     newIntent: (state, { intent, score }) => {
       if (intent.includes('Intensity')) {
-        console.log('intensity updated')
         state.intensity = intent
         if (intent.includes('More')) {
           state.counter++
@@ -60,7 +59,6 @@ export default new Vuex.Store({
           state.counter--
         }
       } else {
-        console.log('intent updated')
         state.intent = intent
       }
       state.score = score
@@ -72,7 +70,6 @@ export default new Vuex.Store({
       state.intent = status
     },
     setZoom: state => {
-      console.log('firing')
       var expr = state.intent
       switch (expr) {
         case 'App.Excited':
