@@ -152,5 +152,22 @@ const altMaps = {
   bless: 'Intensity.Less',
   Bless: 'Intensity.Less',
   Bess: 'Intensity.Less',
-  bess: 'Intensity.Less'
+  bess: 'Intensity.Less',
+  best: 'Intensity.Less',
+  birth: 'Intensity.Less',
+  love: 'Intensity.Less',
+  plus: 'Intensity.Less',
+  glad: 'Intensity.Less',
+  louis: 'Intensity.Less',
+  glass: 'Intensity.Less',
+  let: 'Intensity.Less',
+  mirrors: 'App.Nervous',
+  hobby: 'App.Happy',
+  heavy: 'App.Happy',
+  faded: 'App.Excited',
+  phelan: 'App.Excited',
+  home: 'App.Calm',
+  call: 'App.Calm',
+  hull: 'App.Calm',
+  tipton: 'App.Tipsy'
 }
