@@ -11,21 +11,6 @@ const SpeechGrammarList =
 const SpeechRecognitionEvent =
   window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent
 
-// if it keeps thinking you're saying something else, add here:
-// we don't want to do it in Luis if the meaning is much different
-// because it will learn the wrong thing.
-const altMaps = {
-  gypsy: 'App.Tipsy',
-  call: 'App.Calm',
-  Les: 'Intensity.Less',
-  bus: 'Intensity.Less',
-  Bus: 'Intensity.Less',
-  plus: 'Intensity.Less',
-  Plus: 'Intensity.Less',
-  last: 'Intensity.Less',
-  Last: 'Intensity.Less'
-}
-
 if (!SpeechRecognition) {
   // uh shit browser doesn't support speech, do things here
 }
@@ -152,3 +137,18 @@ export default new Vuex.Store({
     }
   }
 })
+
+// if it keeps thinking you're saying something else, add here:
+// we don't want to do it in Luis if the meaning is much different
+// because it will learn the wrong thing.
+const altMaps = {
+  gypsy: 'App.Tipsy',
+  call: 'App.Calm',
+  Les: 'Intensity.Less',
+  bus: 'Intensity.Less',
+  Bus: 'Intensity.Less',
+  plus: 'Intensity.Less',
+  Plus: 'Intensity.Less',
+  last: 'Intensity.Less',
+  Last: 'Intensity.Less'
+}

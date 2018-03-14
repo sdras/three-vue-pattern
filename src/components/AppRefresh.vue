@@ -21,7 +21,7 @@ div {
   bottom: 30px;
   left: 50%;
   margin-left: -50px;
-  width: 140px;
+  width: 135px;
 }
 
 button {

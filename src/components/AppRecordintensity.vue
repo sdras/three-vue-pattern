@@ -3,7 +3,7 @@
     <main>
       <h1 class="emotion">Feeling {{ emotion }}</h1>
       <h3>Change the intensity!</h3>
-      <p class="big"><span>Some options... </span><em>add, subtract</em></p>
+      <p class="big"><span>Some options... </span><em>more, less, add, subtract</em></p>
       <div><button class="recording" @click="getNewIntent" :class="{ disabled: uiState === 'listening' }"></button></div>
       <app-sineloader v-if="uiState === 'listening'"/>
     </main>
