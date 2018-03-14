@@ -11,6 +11,15 @@ const SpeechGrammarList =
 const SpeechRecognitionEvent =
   window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent
 
+// if it keeps thinking you're saying something else, add here:
+// we don't want to do it in Luis if the meaning is much different
+// because it will learn the wrong thing.
+const altMaps = {
+  gypsy: 'App.Tipsy',
+  call: 'App.Calm',
+  Les: 'Intensity.Less'
+}
+
 if (!SpeechRecognition) {
   // uh shit browser doesn't support speech, do things here
 }
@@ -76,19 +85,19 @@ export default new Vuex.Store({
       var expr = state.intent
       switch (expr) {
         case 'App.Excited':
-          state.zoom = (2 + state.counter)
+          state.zoom = 2 + state.counter
           break
         case 'App.Nervous':
-          state.zoom = (2 + state.counter)
+          state.zoom = 2 + state.counter
           break
         case 'App.Happy':
-          state.zoom = (2 + state.counter)
+          state.zoom = 2 + state.counter
           break
         case 'App.Tipsy':
-          state.zoom = (1 + state.counter)
+          state.zoom = 1 + state.counter
           break
         default:
-          state.zoom = (3 + state.counter)
+          state.zoom = 3 + state.counter
       }
     }
   },
@@ -123,7 +132,11 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           console.log('axios result', data)
-          commit('newIntent', data.topScoringIntent)
+          if (altMaps.hasOwnProperty(data.query)) {
+            commit('newIntent', { intent: altMaps[data.query], score: 1 })
+          } else {
+            commit('newIntent', data.topScoringIntent)
+          }
           commit('setUiState', 'idle')
           commit('setZoom')
         })
