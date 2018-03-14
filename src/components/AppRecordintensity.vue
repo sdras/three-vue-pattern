@@ -2,7 +2,7 @@
   <main>
     <h1 class="emotion">Feeling {{ emotion }}</h1>
     <h3>Change the intensity!</h3>
-    <p class="big"><span>Some options... </span><em>more, less</em></p>
+    <p class="big"><span>Some options... </span><em>add, subtract</em></p>
     <div><button @click="getNewIntent" :class="{ disabled: uiState === 'listening' }"></button></div>
     <app-sineloader v-if="uiState === 'listening'"/>
   </main>
@@ -37,14 +37,13 @@ export default {
 <style scoped>
 main {
   margin-top: 40px;
-  padding: 20px;
+  padding: 20px 20px 40px;
   text-align: center;
   background: black;
   position: absolute;
   top: 20px;
   left: 50%;
   width: 500px;
-  height: 300px;
   margin-left: -250px;
 }
 

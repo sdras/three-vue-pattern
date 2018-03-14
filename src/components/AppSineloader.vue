@@ -1,5 +1,7 @@
 <template>
-  <canvas ref="waves"></canvas>
+  <div>
+    <canvas ref="waves"></canvas>
+  </div>
 </template>
 
 <script>
@@ -10,13 +12,9 @@ export default {
     waves() {
       var waves = new SineWaves({
         el: this.$refs.waves,
-
         speed: 20,
-
         ease: 'SineInOut',
-
         wavesWidth: '50%',
-
         waves: [
           {
             timeModifier: 4,
@@ -84,8 +82,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-canvas {
+div {
   background: black;
-  width: 500px;
 }
 </style>

@@ -31,19 +31,13 @@ export default new Vuex.Store({
     intent: 'None',
     intensity: 'None',
     score: 0,
-
-    // feel free to change this, thought it may help
-    // it'll be one of three states
     // idle - awaiting user input
     // listening - listening to user input
     // fetching - fetching user data from the API
-    uiState: 'idle'
+    uiState: 'idle',
+    zoom: 3
   },
-  //showing things, not mutating state
   getters: {
-    tripleCounter: state => {
-      return state.counter * 3
-    },
     intentStr: state => {
       var str = state.intent
       str = str.replace(/\b(App.)\b/gi, '')
@@ -55,19 +49,8 @@ export default new Vuex.Store({
       return str
     }
   },
-  //mutating the state
-  //mutations are always synchronous
   mutations: {
-    //showing passed with payload, represented as num
-    increment: (state, num) => {
-      state.counter += num
-    },
     newIntent: (state, { intent, score }) => {
-      // the score is how confident the API is in the intent it gave
-      // on a scale from 0 to 1, where score > .7 is considered to be
-      // decently confident; I set that thresh hold at .3 for my CodePen
-      // because I probably didn't train it well enough but it worked
-      // well enough for the demo
       if (intent.includes('Intensity')) {
         console.log('intensity updated')
         state.intensity = intent
@@ -87,6 +70,26 @@ export default new Vuex.Store({
     },
     setIntent: (state, status) => {
       state.intent = status
+    },
+    setZoom: state => {
+      console.log('firing')
+      var expr = state.intent
+      switch (expr) {
+        case 'App.Excited':
+          state.zoom = (2 + state.counter)
+          break
+        case 'App.Nervous':
+          state.zoom = (2 + state.counter)
+          break
+        case 'App.Happy':
+          state.zoom = (2 + state.counter)
+          break
+        case 'App.Tipsy':
+          state.zoom = (1 + state.counter)
+          break
+        default:
+          state.zoom = (3 + state.counter)
+      }
     }
   },
   actions: {
@@ -122,6 +125,7 @@ export default new Vuex.Store({
           console.log('axios result', data)
           commit('newIntent', data.topScoringIntent)
           commit('setUiState', 'idle')
+          commit('setZoom')
         })
         .catch(err => {
           console.error('axios error', err)

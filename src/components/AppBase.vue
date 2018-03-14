@@ -7,11 +7,6 @@ import * as THREE from 'three'
 
 export default {
   props: {
-    shapeZoom: {
-      type: Number,
-      default: 3,
-      required: false
-    },
     numAxes: {
       type: Number,
       default: 12,
@@ -53,6 +48,11 @@ export default {
       required: false
     }
   },
+  computed: {
+    shapeZoom() {
+      return this.$store.state.zoom
+    }
+  },
   data() {
     return {
       bufferScene: new THREE.Scene(),
@@ -86,6 +86,7 @@ export default {
       this.animate()
     },
     shapeZoom() {
+      console.log('zoom changed')
       this.createShapes()
       cancelAnimationFrame(this.storeRAF)
       this.animate()
