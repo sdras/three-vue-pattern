@@ -6,13 +6,11 @@
 
     <app-base 
       v-if="intent === 'Excited'"
-      :shape-zoom="2" 
       :t-config.a="1" 
       :t-config.b="200" 
     />
     <app-base 
       v-if="intent === 'Nervous'"
-      :shape-zoom="2" 
       :t-config.a="1"  
       :color="0xff0000"
       :wireframe="true"
@@ -20,14 +18,12 @@
       :emissive="true"
     />
     <app-base 
-      v-if="intent === 'Happy'"
-      :shape-zoom="2" 
+      v-if="intent === 'Happy'" 
       :t-config.a="1" 
       :t-config.c="10"  
     />
     <app-base 
       v-if="intent === 'Frustrated'"
-      :shape-zoom="3" 
       :t-config.a="1" 
       :t-config.c="3" 
       :wireframe="false" 
@@ -35,33 +31,26 @@
       :color="0x3964e8" 
     />
     <app-base v-if="intent === 'Calm'" :t-config.a="1"  />
-    <app-base v-if="intent === 'Tipsy'" :shape-zoom="1" />
+    <app-base v-if="intent === 'Tipsy'" />
     
   </div>
 </template>
 
 <script>
-import AppVuex from './components/AppVuex.vue'
 import AppBase from './components/AppBase.vue'
 import AppRecorder from './components/AppRecorder.vue'
 import AppRecordintensity from './components/AppRecordintensity.vue'
 
 export default {
   components: {
-    AppVuex,
     AppBase,
     AppRecorder,
     AppRecordintensity
   },
-  data() {
-    return {
-      zoomNum: 3
-    }
-  },
   computed: {
     intent() {
       return this.$store.getters.intentStr
-    }
+    },
   }
 }
 </script>
