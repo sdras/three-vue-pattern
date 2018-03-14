@@ -79,13 +79,7 @@ export default {
     }
   },
   watch: {
-    wireframe() {
-      this.createShapes()
-      cancelAnimationFrame(this.storeRAF)
-      this.animate()
-    },
     shapeZoom() {
-      console.log('zoom changed')
       this.createShapes()
       cancelAnimationFrame(this.storeRAF)
       this.animate()
@@ -96,11 +90,9 @@ export default {
       this.bufferCamera.position.z = this.shapeZoom
 
       if (this.torusKnot !== null) {
-        console.log(this.torusKnot)
         this.torusKnot.material.dispose()
         this.torusKnot.geometry.dispose()
         this.bufferScene.remove(this.torusKnot)
-        console.log(this.bufferScene.children)
       }
 
       var shape = new THREE.TorusKnotGeometry(

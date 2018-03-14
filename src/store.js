@@ -11,15 +11,6 @@ const SpeechGrammarList =
 const SpeechRecognitionEvent =
   window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent
 
-// if it keeps thinking you're saying something else, add here:
-// we don't want to do it in Luis if the meaning is much different
-// because it will learn the wrong thing.
-const altMaps = {
-  gypsy: 'App.Tipsy',
-  call: 'App.Calm',
-  Les: 'Intensity.Less'
-}
-
 if (!SpeechRecognition) {
   // uh shit browser doesn't support speech, do things here
 }
@@ -61,7 +52,6 @@ export default new Vuex.Store({
   mutations: {
     newIntent: (state, { intent, score }) => {
       if (intent.includes('Intensity')) {
-        console.log('intensity updated')
         state.intensity = intent
         if (intent.includes('More')) {
           state.counter++
@@ -69,7 +59,6 @@ export default new Vuex.Store({
           state.counter--
         }
       } else {
-        console.log('intent updated')
         state.intent = intent
       }
       state.score = score
@@ -81,7 +70,6 @@ export default new Vuex.Store({
       state.intent = status
     },
     setZoom: state => {
-      console.log('firing')
       var expr = state.intent
       switch (expr) {
         case 'App.Excited':
@@ -146,3 +134,23 @@ export default new Vuex.Store({
     }
   }
 })
+
+// if it keeps thinking you're saying something else, add here:
+// we don't want to do it in Luis if the meaning is much different
+// because it will learn the wrong thing.
+const altMaps = {
+  gypsy: 'App.Tipsy',
+  call: 'App.Calm',
+  Les: 'Intensity.Less',
+  bus: 'Intensity.Less',
+  Bus: 'Intensity.Less',
+  plus: 'Intensity.Less',
+  Plus: 'Intensity.Less',
+  last: 'Intensity.Less',
+  Last: 'Intensity.Less',
+  Rush: 'Intensity.Less',
+  bless: 'Intensity.Less',
+  Bless: 'Intensity.Less',
+  Bess: 'Intensity.Less',
+  bess: 'Intensity.Less'
+}
