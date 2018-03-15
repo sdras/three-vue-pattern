@@ -69,6 +69,10 @@ export default new Vuex.Store({
     setIntent: (state, status) => {
       state.intent = status
     },
+    abortRecording: state => {
+      recognition.abort()
+      state.uiState = 'idle'
+    },
     setZoom: state => {
       var expr = state.intent
       switch (expr) {
@@ -164,6 +168,12 @@ const altMaps = {
   louis: 'Intensity.Less',
   glass: 'Intensity.Less',
   let: 'Intensity.Less',
+  lek: 'Intensity.Less',
+  lek: 'Intensity.Less',
+  west: 'Intensity.Less',
+  West: 'Intensity.Less',
+  ad: 'Intensity.More',
+  mall: 'Intensity.More',
   mirrors: 'App.Nervous',
   hobby: 'App.Happy',
   heavy: 'App.Happy',
@@ -172,5 +182,8 @@ const altMaps = {
   home: 'App.Calm',
   call: 'App.Calm',
   hull: 'App.Calm',
+  paris: 'App.Nervous',
+  Paris: 'App.Nervous',
+  nurse: 'App.Nervous',
   tipton: 'App.Tipsy'
 }
