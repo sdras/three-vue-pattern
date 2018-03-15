@@ -1,13 +1,19 @@
 <template>
   <div>
     <canvas ref="waves"></canvas>
+    <app-abort />
   </div>
 </template>
 
 <script>
+import AppAbort from './AppAbort.vue'
+
 import * as SineWaves from 'sine-waves'
 
 export default {
+  components: {
+    AppAbort
+  },
   methods: {
     waves() {
       var waves = new SineWaves({

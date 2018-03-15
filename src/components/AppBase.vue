@@ -38,11 +38,13 @@ export default {
       required: false
     },
     tConfig: {
-      default: {
-        a: 2,
-        b: 3,
-        c: 100,
-        d: 3
+      default() {
+        return {
+          a: 2,
+          b: 3,
+          c: 100,
+          d: 3
+        }
       },
       required: false
     }
