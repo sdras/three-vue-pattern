@@ -8,6 +8,8 @@ I have wanted to be able to update a three.js visualization on the fly with Vue 
 
 [LUIS](https://aka.ms/luishome) is a machine learning based service to build natural language through the use of custom models that can continuously improve. We can use this for apps, bots, and even IoT devices. Here we're guiding our visualization, first by telling it our mood, and then we're able to control with it with our voice to update it on the fly and without the use of our hands. The purpose of this demo is to create a biofeedback visualization for those who are trying to guide themselves through healing. There's more information in my Live and Machine Learn talk that I will be giving at Microsoft Build, and possibly a subsequent article.
 
+![demo-image](https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/demo-ex.png)
+
 This project was created in collaboration with [Brian Holt](https://github.com/btholt).
 
 ---
