@@ -1,21 +1,20 @@
 <template>
-    <main>
-      <h1>How do you feel?</h1>
-      <p class="big"><span>Some options... </span><br>
-      <em>excited, nervous, frustrated, happy, calm, tipsy</em></p>
-      <p><span>Hit the button and start recording</span></p>
-      <app-buttonrecord />
-      <app-sineloader v-if="uiState === 'listening'"/>
-    </main>
+  <main>
+    <h1>How do you feel?</h1>
+    <p class="big"><span>Some options... </span><br>
+    <em>excited, nervous, frustrated, happy, calm, tipsy</em></p>
+    <p><span>Hit the button and start recording</span></p>
+    <app-recordinglogic />
+  </main>
 </template>
 
 <script>
-import AppSineloader from './AppSineloader.vue'
+import AppRecordinglogic from './AppRecordinglogic.vue'
 import AppButtonrecord from './AppButtonrecord.vue'
 
 export default {
   components: {
-    AppSineloader,
+    AppRecordinglogic,
     AppButtonrecord
   },
   computed: {

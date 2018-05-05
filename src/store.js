@@ -31,6 +31,7 @@ export default new Vuex.Store({
     // listening - listening to user input
     // fetching - fetching user data from the API
     uiState: 'idle',
+    aborted: false,
     zoom: 3
   },
   getters: {
@@ -68,6 +69,7 @@ export default new Vuex.Store({
     abortRecording: state => {
       recognition.abort()
       state.uiState = 'idle'
+      state.aborted = true
     },
     setZoom: state => {
       var expr = state.intent

@@ -6,17 +6,14 @@
 
 <script>
 export default {
-  props: {
-    aborted: {
-      type: Boolean,
-      default: false,
-      required: false
+  computed: {
+    aborted() {
+      return this.$store.state.aborted
     }
   },
   methods: {
     abort() {
       this.$store.commit('abortRecording')
-      this.$emit('change', true)
     }
   }
 }

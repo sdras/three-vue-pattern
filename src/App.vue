@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <app-recorder v-if="intent === 'None'"></app-recorder>
+    <app-recordintent v-if="intent === 'None'"></app-recordintent>
     <app-recordintensity v-if="intent !== 'None'" :emotion="intent" />
 
     <app-base 
@@ -37,13 +37,13 @@
 
 <script>
 import AppBase from './components/AppBase.vue'
-import AppRecorder from './components/AppRecorder.vue'
+import AppRecordintent from './components/AppRecordintent.vue'
 import AppRecordintensity from './components/AppRecordintensity.vue'
 
 export default {
   components: {
     AppBase,
-    AppRecorder,
+    AppRecordintent,
     AppRecordintensity
   },
   computed: {

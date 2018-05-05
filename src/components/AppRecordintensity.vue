@@ -4,7 +4,7 @@
       <h1 class="emotion">Feeling {{ emotion }}</h1>
       <h3>Change the intensity!</h3>
       <p class="big"><span>Some options... </span><em>more, less</em></p>
-      <app-sineloader :buttonNeeded="false" />
+      <app-recordinglogic/>
     </main>
 
     <app-refresh />
@@ -12,28 +12,18 @@
 </template>
 
 <script>
-import AppSineloader from './AppSineloader.vue'
+import AppRecordinglogic from './AppRecordinglogic.vue'
 import AppRefresh from './AppRefresh.vue'
 
 export default {
   components: {
-    AppSineloader,
+    AppRecordinglogic,
     AppRefresh
   },
   props: {
     emotion: {
       default: 'Excited',
       required: true
-    }
-  },
-  computed: {
-    uiState() {
-      return this.$store.state.uiState
-    }
-  },
-  methods: {
-    getNewIntent() {
-      this.$store.dispatch('getSpeech')
     }
   }
 }
@@ -63,22 +53,5 @@ p.big {
 
 span {
   color: rgb(168, 167, 167);
-}
-
-button {
-  border-radius: 1000px;
-  background: red;
-  width: 80px;
-  height: 80px;
-  border: none;
-  outline: 0;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: 0.3s all ease-out;
-}
-
-button.disabled {
-  background: #ccc;
-  cursor: none;
 }
 </style>
