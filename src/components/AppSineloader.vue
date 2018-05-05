@@ -1,18 +1,22 @@
 <template>
   <div>
-    <canvas ref="waves"></canvas>
-    <app-abort />
+    <canvas ref="waves" v-if="!aborted"></canvas>
+    <app-abort @change="aborted = $event" :aborted="aborted"/>
   </div>
 </template>
 
 <script>
 import AppAbort from './AppAbort.vue'
-
 import * as SineWaves from 'sine-waves'
 
 export default {
   components: {
     AppAbort
+  },
+  data() {
+    return {
+      aborted: false
+    }
   },
   methods: {
     waves() {

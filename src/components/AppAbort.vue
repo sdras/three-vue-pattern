@@ -1,14 +1,22 @@
 <template>
   <div>
-    <button @click="abort">Abort Recording</button>
+    <button @click="abort">Abort Recording</button>      
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    aborted: {
+      type: Boolean,
+      default: false,
+      required: false
+    }
+  },
   methods: {
     abort() {
       this.$store.commit('abortRecording')
+      this.$emit('change', true)
     }
   }
 }

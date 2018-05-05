@@ -4,26 +4,23 @@
       <p class="big"><span>Some options... </span><br>
       <em>excited, nervous, frustrated, happy, calm, tipsy</em></p>
       <p><span>Hit the button and start recording</span></p>
-      <div><button @click="getNewIntent" :class="{ disabled: uiState === 'listening' }"></button></div>
+      <app-buttonrecord />
       <app-sineloader v-if="uiState === 'listening'"/>
     </main>
 </template>
 
 <script>
 import AppSineloader from './AppSineloader.vue'
+import AppButtonrecord from './AppButtonrecord.vue'
 
 export default {
   components: {
-    AppSineloader
+    AppSineloader,
+    AppButtonrecord
   },
   computed: {
     uiState() {
       return this.$store.state.uiState
-    }
-  },
-  methods: {
-    getNewIntent() {
-      this.$store.dispatch('getSpeech')
     }
   }
 }
@@ -53,22 +50,5 @@ p.big {
 
 span {
   color: rgb(168, 167, 167);
-}
-
-button {
-  border-radius: 1000px;
-  background: red;
-  width: 80px;
-  height: 80px;
-  border: none;
-  outline: 0;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: 0.3s all ease-out;
-}
-
-button.disabled {
-  background: #ccc;
-  cursor: none;
 }
 </style>
