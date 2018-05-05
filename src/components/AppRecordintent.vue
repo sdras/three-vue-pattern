@@ -1,35 +1,31 @@
 <template>
-  <div>
-    <main>
-      <h1 class="emotion">Feeling {{ emotion }}</h1>
-      <h3>Change the intensity!</h3>
-      <p class="big"><span>Some options... </span><em>more, less</em></p>
-      <app-recordinglogic/>
-    </main>
-
-    <app-refresh />
-  </div>
+  <main>
+    <h1>How do you feel?</h1>
+    <p class="big"><span>Some options... </span><br>
+    <em>excited, nervous, frustrated, happy, calm, tipsy</em></p>
+    <p><span>Hit the button and start recording</span></p>
+    <app-recordinglogic />
+  </main>
 </template>
 
 <script>
 import AppRecordinglogic from './AppRecordinglogic.vue'
-import AppRefresh from './AppRefresh.vue'
+import AppButtonrecord from './AppButtonrecord.vue'
 
 export default {
   components: {
     AppRecordinglogic,
-    AppRefresh
+    AppButtonrecord
   },
-  props: {
-    emotion: {
-      default: 'Excited',
-      required: true
+  computed: {
+    uiState() {
+      return this.$store.state.uiState
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 main {
   margin-top: 40px;
   padding: 20px 20px 40px;
