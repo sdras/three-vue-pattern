@@ -6,6 +6,13 @@
 
 <script>
 export default {
+  props: {
+    aborted: {
+      type: Boolean,
+      default: false,
+      required: true
+    }
+  },
   computed: {
     uiState() {
       return this.$store.state.uiState
@@ -14,6 +21,7 @@ export default {
   methods: {
     getNewIntent() {
       this.$store.dispatch('getSpeech')
+      this.$emit('isaborted', false)
     }
   }
 }
