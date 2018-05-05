@@ -91,4 +91,8 @@ export default {
 div {
   background: black;
 }
+
+canvas {
+  height: 150px;
+}
 </style>

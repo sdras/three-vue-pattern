@@ -17,10 +17,6 @@ if (!SpeechRecognition) {
 
 const recognition = new SpeechRecognition()
 
-// put true here if you the speech to keep recording after it gets a result, leave false if you want the speech to end after it gets a result
-// this also means you'll need to stop speech at some point by calling `recognition.abort()`
-recognition.continuous = false
-
 recognition.lang = 'en-US'
 recognition.interimResults = false
 recognition.maxAlternatives = 1
@@ -94,11 +90,18 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getSpeech({ dispatch, commit }) {
+    getSpeech({ dispatch, commit, state }) {
       commit('setUiState', 'listening')
+
+      //keep recording speech all the time or activate it- for the first screen no, press a button. second screen yes.
+      state.intent === 'None'
+        ? (recognition.continuous = true)
+        : (recognition.continuous = false)
+
       recognition.start()
 
       recognition.onresult = function(event) {
+        console.log(event)
         const last = event.results.length - 1
         const phrase = event.results[last][0].transcript
         dispatch('getUnderstanding', phrase)
