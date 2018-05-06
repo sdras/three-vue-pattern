@@ -101,7 +101,6 @@ export default new Vuex.Store({
       recognition.start()
 
       recognition.onresult = function(event) {
-        console.log(event)
         const last = event.results.length - 1
         const phrase = event.results[last][0].transcript
         dispatch('getUnderstanding', phrase)
