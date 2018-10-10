@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <app-recordintent v-if="intent === 'None'"></app-recordintent>
+    <app-recordintent v-if="intent === 'None'" />
     <app-recordintensity v-if="intent !== 'None'" :emotion="intent" />
 
     <app-base 
